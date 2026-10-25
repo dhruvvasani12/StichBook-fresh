@@ -1,54 +1,117 @@
 
-<section id="loginPanel" class="panel narrow">
-  <h2>Sign in</h2>
-  <p class="muted">Sign in to your StitchBook account.</p>
+<section id="loginPanel" class="auth-page">
+  <div class="auth-card">
 
-  <form id="loginForm">
-    <label>
-      Email
-      <input id="email" type="email" autocomplete="username" required>
-    </label>
+    <div class="auth-brand">
+      <div class="auth-logo">S</div>
+      <h1>StitchBook</h1>
+      <p>Your work. Your records. All in one place.</p>
+    </div>
 
-    <label>
-      Password
-      <input id="password" type="password" autocomplete="current-password" required>
-    </label>
+    <!-- SIGN IN VIEW -->
+    <div id="signInView">
+      <h2>Welcome back!</h2>
+      <p class="auth-subtitle">
+        Sign in to continue to your account.
+      </p>
 
-    <button id="loginButton" type="submit">Sign in</button>
-    <p id="loginMessage" class="message" aria-live="polite"></p>
-  </form>
+      <form id="loginForm" class="auth-form">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          autocomplete="username"
+          required
+        >
 
-  <hr>
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
 
-  <h2>Create a worker account</h2>
-  <p class="muted">New workers can register here.</p>
+        <button id="loginButton" class="auth-primary" type="submit">
+          Sign In
+        </button>
 
-  <form id="registerForm">
-    <label>
-      Full name
-      <input id="registerName" type="text" maxlength="100"
-             autocomplete="name" required>
-    </label>
+        <p id="loginMessage" class="message" aria-live="polite"></p>
+      </form>
 
-    <label>
-      Email
-      <input id="registerEmail" type="email"
-             autocomplete="email" required>
-    </label>
+      <div class="auth-switch">
+        Don't have an account?
+        <button type="button" id="showRegister" class="auth-link">
+          Register
+        </button>
+      </div>
+    </div>
 
-    <label>
-      Password
-      <input id="registerPassword" type="password"
-             minlength="8" autocomplete="new-password" required>
-    </label>
+    <!-- REGISTER VIEW: HIDDEN INITIALLY -->
+    <div id="registerView" hidden>
+      <h2>Create your account</h2>
+      <p class="auth-subtitle">
+        Register to start using StitchBook.
+      </p>
 
-    <label>
-      Confirm password
-      <input id="confirmPassword" type="password"
-             minlength="8" autocomplete="new-password" required>
-    </label>
+      <form id="registerForm" class="auth-form">
+        <label for="registerName">Full name</label>
+        <input
+          id="registerName"
+          type="text"
+          placeholder="Enter your full name"
+          maxlength="100"
+          autocomplete="name"
+          required
+        >
 
-    <button id="registerButton" type="submit">Create worker account</button>
-    <p id="registerMessage" class="message" aria-live="polite"></p>
-  </form>
+        <label for="registerEmail">Email address</label>
+        <input
+          id="registerEmail"
+          type="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+          required
+        >
+
+        <label for="registerPassword">Password</label>
+        <input
+          id="registerPassword"
+          type="password"
+          placeholder="At least 8 characters"
+          minlength="8"
+          autocomplete="new-password"
+          required
+        >
+
+        <label for="confirmPassword">Confirm password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Enter your password again"
+          minlength="8"
+          autocomplete="new-password"
+          required
+        >
+
+        <button id="registerButton" class="auth-primary" type="submit">
+          Create Account
+        </button>
+
+        <p id="registerMessage" class="message" aria-live="polite"></p>
+      </form>
+
+      <div class="auth-switch">
+        Already have an account?
+        <button type="button" id="showLogin" class="auth-link">
+          Sign In
+        </button>
+      </div>
+    </div>
+
+    <p class="auth-footer">Simple. Organized. StitchBook.</p>
+
+  </div>
 </section>
