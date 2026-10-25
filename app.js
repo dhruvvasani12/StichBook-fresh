@@ -116,3 +116,78 @@ $("loginForm").addEventListener("submit",login);$("logoutButton").addEventListen
 $("machinePhotos").addEventListener("change",previewPhotos);$("workCount").addEventListener("input",()=>$("fabricLengthPreview").textContent=metres($("workCount").value));
 $("refreshHistoryButton").addEventListener("click",loadAdminHistory);$("filterFrom").addEventListener("change",loadAdminHistory);$("filterTo").addEventListener("change",loadAdminHistory);$("filterSearch").addEventListener("input",loadAdminHistory);$("refreshWorkerHistoryButton").addEventListener("click",loadWorkerHistory);
 $("workDate").value=today();init();
+
+async function registerWorker(e) {
+  e.preventDefault();
+  message("registerMessage");
+
+  const button = $("registerButton");
+  button.disabled = true;
+  button.textContent = "Creating account…";
+
+  try {
+    if (!supabase) {
+      throw new Error("Supabase is not configured.");
+    }
+
+    const fullName = $("registerName").value.trim();
+    const email = $("registerEmail").value.trim().toLowerCase();
+    const password = $("registerPassword").value;
+    const confirmation = $("confirmPassword").value;
+
+    if (!fullName) {
+      throw new Error("Please enter your full name.");
+    }
+
+    if (password.length < 8) {
+      throw new Error("Password must contain at least 8 characters.");
+    }
+
+    if (password !== confirmation) {
+      throw new Error("Passwords do not match.");
+    }
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName
+        }
+      }
+    });
+
+    if (error) throw error;
+
+    if (data.session && data.user) {
+      currentUser = data.user;
+      const profile = await profileFor(currentUser);
+      await signedIn(profile);
+
+      message(
+        "registerMessage",
+        "Account created successfully.",
+        "success"
+      );
+    } else {
+      message(
+        "registerMessage",
+        "Registration submitted. Check your email to confirm your account before signing in, if confirmation is required.",
+        "success"
+      );
+    }
+
+    $("registerForm").reset();
+  } catch (err) {
+    message(
+      "registerMessage",
+      err.message || "Registration failed.",
+      "error"
+    );
+  } finally {
+    button.disabled = false;
+    button.textContent = "Create worker account";
+  }
+}
+
+$("registerForm").addEventListener("submit", registerWorker);
