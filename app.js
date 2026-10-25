@@ -191,3 +191,18 @@ async function registerWorker(e) {
 }
 
 $("registerForm").addEventListener("submit", registerWorker);
+
+function showAuthView(view) {
+  const registering = view === "register";
+
+  $("signInView").hidden = registering;
+  $("registerView").hidden = !registering;
+}
+
+$("showRegister").addEventListener("click", () => {
+  showAuthView("register");
+});
+
+$("showLogin").addEventListener("click", () => {
+  showAuthView("login");
+});
