@@ -1,16 +1,54 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>StitchBook</title><link rel="stylesheet" href="./styles.css"></head>
-<body><main class="shell"><header class="topbar"><div class="brand">S</div><div><h1>StitchBook</h1><p>Daily machine-work records</p></div></header>
-<section id="setupNotice" class="panel notice hidden"><h2>Setup needed</h2><p>Set Supabase URL and publishable/anon key in <code>config.js</code>, then run <code>supabase-schema.sql</code> in Supabase SQL Editor.</p></section>
-<section id="loginPanel" class="panel narrow"><h2>Sign in</h2><p class="muted">Use the account created by your administrator.</p><form id="loginForm"><label>Email<input id="email" type="email" autocomplete="username" required></label><label>Password<input id="password" type="password" autocomplete="current-password" required></label><button id="loginButton">Sign in</button><p id="loginMessage" class="message"></p></form></section>
-<section id="appPanel" class="hidden"><section class="panel welcome"><div><p class="eyebrow">SIGNED IN</p><h2 id="welcomeHeading">Welcome</h2><p id="roleMessage" class="muted"></p></div><button id="logoutButton" class="secondary">Log out</button></section>
-<section id="workerPanel" class="panel hidden"><h2>Enter daily work</h2><p class="muted">Enter figures manually. OCR is not included.</p><form id="workForm"><div class="grid">
-<label>Worker name<input id="workerName" required maxlength="100"></label><label>Worker mobile (optional)<input id="workerMobile" type="tel" maxlength="25"></label>
-<label>Machine number<input id="machineNumber" required maxlength="50"></label><label>Work date<input id="workDate" type="date" required></label>
-<label>Work count<input id="workCount" type="number" min="0" step="1" required></label><label>Stitch count<input id="stitchCount" type="number" min="0" step="1" required></label>
-<label>Machine time (optional)<input id="machineTime" maxlength="100" placeholder="e.g. 8 hours"></label><label>Placement (optional)<input id="placement" maxlength="100"></label></div>
-<div class="fabric"><span>Fabric length</span><strong id="fabricLengthPreview">0 metres</strong><small>Work count × 6 metres per frame</small></div>
-<label>Machine photos (2–12 images)<input id="machinePhotos" type="file" accept="image/*" multiple required></label><p id="photoCount" class="muted">No photos selected</p><div id="photoPreview" class="photos"></div>
-<button id="saveWorkButton">Save work record</button><p id="workMessage" class="message"></p></form></section>
-<section id="adminPanel" class="panel hidden"><div class="heading"><div><h2>Work history</h2><p class="muted">All submitted records</p></div><button id="refreshHistoryButton" class="secondary">Refresh</button></div><div class="grid filters"><label>From date<input id="filterFrom" type="date"></label><label>To date<input id="filterTo" type="date"></label><label>Search worker or machine<input id="filterSearch" placeholder="Name or machine number"></label></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Worker</th><th>Machine</th><th>Work</th><th>Stitches</th><th>Fabric</th><th>Photos</th></tr></thead><tbody id="historyRows"><tr><td colspan="7">No records loaded.</td></tr></tbody></table></div><p id="historyMessage" class="message"></p></section>
-<section id="workerHistoryPanel" class="panel hidden"><div class="heading"><div><h2>My work history</h2><p class="muted">Your recent submissions</p></div><button id="refreshWorkerHistoryButton" class="secondary">Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Machine</th><th>Work</th><th>Stitches</th><th>Fabric</th><th>Photos</th></tr></thead><tbody id="workerHistoryRows"><tr><td colspan="6">No records loaded.</td></tr></tbody></table></div><p id="workerHistoryMessage" class="message"></p></section></section><footer>StitchBook · Manual entry · No OCR</footer></main><script type="module" src="./app.js"></script></body></html>
+
+<section id="loginPanel" class="panel narrow">
+  <h2>Sign in</h2>
+  <p class="muted">Sign in to your StitchBook account.</p>
+
+  <form id="loginForm">
+    <label>
+      Email
+      <input id="email" type="email" autocomplete="username" required>
+    </label>
+
+    <label>
+      Password
+      <input id="password" type="password" autocomplete="current-password" required>
+    </label>
+
+    <button id="loginButton" type="submit">Sign in</button>
+    <p id="loginMessage" class="message" aria-live="polite"></p>
+  </form>
+
+  <hr>
+
+  <h2>Create a worker account</h2>
+  <p class="muted">New workers can register here.</p>
+
+  <form id="registerForm">
+    <label>
+      Full name
+      <input id="registerName" type="text" maxlength="100"
+             autocomplete="name" required>
+    </label>
+
+    <label>
+      Email
+      <input id="registerEmail" type="email"
+             autocomplete="email" required>
+    </label>
+
+    <label>
+      Password
+      <input id="registerPassword" type="password"
+             minlength="8" autocomplete="new-password" required>
+    </label>
+
+    <label>
+      Confirm password
+      <input id="confirmPassword" type="password"
+             minlength="8" autocomplete="new-password" required>
+    </label>
+
+    <button id="registerButton" type="submit">Create worker account</button>
+    <p id="registerMessage" class="message" aria-live="polite"></p>
+  </form>
+</section>
